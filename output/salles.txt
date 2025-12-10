@@ -1,0 +1,4 @@
+# Fichier des salles - Format: ID;Nom;Capacité;TarifHoraire;Équipement
+# Généré automatiquement le Dec 10 2025
+# ================================================
+1;salleA;24;15.00;projecteur
