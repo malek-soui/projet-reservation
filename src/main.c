@@ -21,11 +21,9 @@ time_t lire_date_heure() {
     t.tm_mday = jour;
     t.tm_hour = heure;
     t.tm_min = min;
-    t.tm_isdst = -1; 
+    t.tm_isdst = -1;
 
     return mktime(&t);
-    
-
 }
 void initialiser_ids() {
     Salle* s = head_salles;
@@ -59,10 +57,8 @@ void creer_salle() {
     printf("equipements:");
     scanf("%s", nouvelle_salle.equipement);
 
-    
     head_salles = ajouter_salle(head_salles, nouvelle_salle);
     
-    // Sauvegarder immédiatement en binaire et texte
     sauvegarder_salles(head_salles, "../data/salles.dat");
     sauvegarder_salles_texte(head_salles, "../output/salles.txt");
     printf("\nSalle %s ajoutee (ID: %d) et enregistree.\n", nouvelle_salle.nom, nouvelle_salle.id);
@@ -76,45 +72,34 @@ void creer_reservation() {
     nouvelle_res.id = next_reservation_id++;
     
     printf("Nom du client : "); scanf("%s", nouvelle_res.nom_client);
-    
     printf("ID de la salle a reserver : "); scanf("%d", &salle_id);
     printf("Nombre de personnes : "); scanf("%d", &nb_personnes);
     printf("Date et heure de DEBUT :\n"); debut = lire_date_heure(); 
     printf("Date et heure de FIN :\n"); fin = lire_date_heure();
 
-
-    
-
-    
     nouvelle_res.salle_id = salle_id;
     nouvelle_res.nombre_personnes = nb_personnes;
     nouvelle_res.date_debut = debut;
     nouvelle_res.date_fin = fin;
 
-    
     if (verifier_conflit_et_capacite(head_reservations, head_salles, salle_id, debut, fin, nb_personnes)) {
-        
-        
         Salle* salle = trouver_salle_par_id(head_salles, salle_id);
         nouvelle_res.cout_total = calculer_cout_reservation(salle->tarif_horaire, debut, fin);
         
         strcpy(nouvelle_res.statut, "Validee");
         
-        
         head_reservations = ajouter_reservation(head_reservations, nouvelle_res);
         
-        // Sauvegarder immédiatement en binaire et texte
         sauvegarder_reservations(head_reservations, "../data/reservations.dat");
         sauvegarder_reservations_texte(head_reservations, "../output/reservations.txt");
 
         printf("\nReservation ID %d VALIDE, ajoutee et enregistree.\n", nouvelle_res.id);
         
-        
         generer_facture(nouvelle_res, salle);
 
     } else {
         printf("\nReservation ANNULEE : Conflit ou capacite insuffisante.\n");
-        next_reservation_id--; 
+        next_reservation_id--;
     }
 }
 void annuler_reservation() {
@@ -126,14 +111,12 @@ void annuler_reservation() {
 
     while (cur != NULL) {
         if (cur->id == id) {
-
             if (strcmp(cur->statut, "Annulee") == 0) {
                 printf("Cette reservation est deja annulee.\n");
                 return;
             }
 
             strcpy(cur->statut, "Annulee");
-            // Sauvegarder immédiatement en binaire et texte
             sauvegarder_reservations(head_reservations, "../data/reservations.dat");
             sauvegarder_reservations_texte(head_reservations, "../output/reservations.txt");
 
@@ -151,7 +134,6 @@ void annuler_reservation() {
 void afficher_stats() {
     printf("\n~~~~les  Statistiques ~~~~\n");
 
-    
     Salle* s = head_salles;
     while(s != NULL) {
         float ca = 0.0;
@@ -177,12 +159,10 @@ void afficher_stats() {
 int main() {
     int choix;
 
-    
     head_salles = chargement_salle("../data/salles.dat");
     head_reservations = charger_reservations("../data/reservations.dat");
     initialiser_ids();
     
-    // Créer les fichiers txt au démarrage
     sauvegarder_salles_texte(head_salles, "../output/salles.txt");
     sauvegarder_reservations_texte(head_reservations, "../output/reservations.txt");
 
@@ -195,9 +175,8 @@ int main() {
         printf("0. Quitter et Sauvegarder \n");
         printf("Votre choix : ");
         if (scanf("%d", &choix) != 1) {
-            
             while(getchar() != '\n');
-            choix = -1; 
+            choix = -1;
         }
 
         switch (choix) {

@@ -1,4 +1,0 @@
-# Fichier des réservations - Format: ID;SalleID;Client;Début;Fin;Statut
-# Généré automatiquement le Dec 10 2025
-# ================================================
-# Aucune réservation enregistrée

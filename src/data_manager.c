@@ -18,7 +18,7 @@ Salle* chargement_salle(const char* filename) {
         }
 
         *nouveau = temp;
-        nouveau->next = head;  
+        nouveau->next = head;
         head = nouveau;
     }
 
@@ -37,7 +37,7 @@ void sauvegarder_salles(Salle* head, const char* filename) {
     Salle* current = head;
     while (current != NULL) {
         Salle temp = *current;
-        temp.next = NULL; 
+        temp.next = NULL;
         fwrite(&temp, sizeof(Salle), 1, file);
         current = current->next;
     }
@@ -83,7 +83,7 @@ void sauvegarder_reservations(Reservation* head, const char* filename) {
     Reservation* current = head;
     while (current != NULL) {
         Reservation temp = *current;
-        temp.next = NULL; 
+        temp.next = NULL;
         fwrite(&temp, sizeof(Reservation), 1, file);
         current = current->next;
     }
@@ -110,13 +110,12 @@ void liberer_reservations(Reservation* head) {
     }
 }
 void sauvegarder_salles_texte(Salle* head, const char* filename) {
-    FILE* file = fopen(filename, "w"); 
+    FILE* file = fopen(filename, "w");
     if (!file) {
         perror("Erreur lors de la création du fichier salles.txt");
         return;
     }
 
-    // En-tête du fichier
     fprintf(file, "# Fichier des salles - Format: ID;Nom;Capacité;TarifHoraire;Équipement\n");
     fprintf(file, "# Généré automatiquement le %s\n", __DATE__);
     fprintf(file, "# ================================================\n");
@@ -141,7 +140,6 @@ void sauvegarder_reservations_texte(Reservation* head, const char* filename) {
         return;
     }
 
-    // En-tête du fichier
     fprintf(file, "# Fichier des réservations - Format: ID;SalleID;Client;Début;Fin;Statut\n");
     fprintf(file, "# Généré automatiquement le %s\n", __DATE__);
     fprintf(file, "# ================================================\n");
@@ -156,11 +154,9 @@ void sauvegarder_reservations_texte(Reservation* head, const char* filename) {
         while (r != NULL) {
             struct tm* tm_info;
 
-            // Formatage date de début
             tm_info = localtime(&r->date_debut);
             strftime(date_debut_str, sizeof(date_debut_str), "%d/%m/%Y %H:%M", tm_info);
 
-            // Formatage date de fin
             tm_info = localtime(&r->date_fin);
             strftime(date_fin_str, sizeof(date_fin_str), "%d/%m/%Y %H:%M", tm_info);
 

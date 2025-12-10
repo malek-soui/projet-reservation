@@ -9,20 +9,20 @@ typedef struct Salle {
     int id;
     char nom[50];
     int capacite;
-    float tarif_horaire; 
+    float tarif_horaire;
     char equipement[50];
-    struct Salle* next;  
+    struct Salle* next;
 } Salle;
 typedef struct Reservation {
     int id;
     char nom_client[50];
-    int salle_id; 
+    int salle_id;
     time_t date_debut;
     time_t date_fin;
     int nombre_personnes;
     float cout_total;
     char statut[20];
-    struct Reservation* next; 
+    struct Reservation* next;
 } Reservation;
 
 Salle* charger_salles(const char* filename);
@@ -31,7 +31,6 @@ Reservation* charger_reservations(const char* filename);
 void sauvegarder_reservations(Reservation* head, const char* filename);
 void liberer_salles(Salle* head);
 void liberer_reservations(Reservation* head);
-
 
 Salle* trouver_salle_par_id(Salle* head, int id);
 float calculer_cout_reservation(float tarif_horaire, time_t debut, time_t fin);

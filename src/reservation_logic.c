@@ -16,7 +16,6 @@ float calculer_cout_reservation(float tarif_horaire, time_t debut, time_t fin) {
 
 int verifier_conflit_et_capacite(Reservation* res_head, Salle* sal_head, int salle_id,
                                  time_t debut, time_t fin, int nb_personnes) {
-
     Salle* salle = trouver_salle_par_id(sal_head, salle_id);
     if (!salle) {
         printf("Erreur : Salle ID %d introuvable.\n", salle_id);
